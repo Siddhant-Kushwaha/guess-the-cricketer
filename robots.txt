@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://siddhant-kushwaha.github.io/guess-the-cricketer/sitemap.xml

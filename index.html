@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Guess the Cricketer — Daily Cricket Guessing Game</title>
+  <meta name="description" content="Guess the Cricketer is a free daily cricket guessing game. One mystery cricketer a day — crack it from country, role, batting hand, bowling style, debut year, IPL team and shirt number in 8 guesses. IPL easy mode and cross-era Legend mode. Share your spoiler-free grid on WhatsApp." />
+  <meta name="theme-color" content="#2f6b3d" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14181a" media="(prefers-color-scheme: dark)" />
+  <link rel="canonical" href="https://siddhant-kushwaha.github.io/guess-the-cricketer/" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Guess the Cricketer — Daily Cricket Guessing Game" />
+  <meta property="og:description" content="One mystery cricketer a day. Crack it in 8 guesses from attribute clues, then share your spoiler-free emoji grid. Free, no login." />
+  <meta property="og:url" content="https://siddhant-kushwaha.github.io/guess-the-cricketer/" />
+  <meta property="og:site_name" content="Guess the Cricketer" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Guess the Cricketer — Daily Cricket Guessing Game" />
+  <meta name="twitter:description" content="One mystery cricketer a day. Crack it in 8 guesses and share your grid." />
+
+  <!-- JSON-LD VideoGame schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Guess the Cricketer",
+    "url": "https://siddhant-kushwaha.github.io/guess-the-cricketer/",
+    "description": "A free daily cricket guessing game. Identify the mystery cricketer in 8 guesses from attribute feedback across country, role, batting hand, bowling style, debut year, IPL team and shirt number. Includes an IPL easy mode and a cross-era Legend mode.",
+    "genre": ["Puzzle", "Word game", "Sports"],
+    "gamePlatform": ["Web browser", "Android", "iOS"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any",
+    "inLanguage": "en",
+    "playMode": "SinglePlayer",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "How do you play Guess the Cricketer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Type any cricketer's name from the pool. Each guess reveals coloured tiles: green means the attribute matches exactly, yellow means it is close (same region, related role, or same bowling family), and grey means it is wrong. Numeric clues like debut year and shirt number show an up or down arrow. You have 8 guesses to find the mystery cricketer of the day." } },
+      { "@type": "Question", "name": "What is the difference between IPL mode and Legend mode?",
+        "acceptedAnswer": { "@type": "Answer", "text": "IPL mode is the easy default and only picks cricketers who have played in the IPL, so the names are highly recognisable. Legend mode is the hard, cross-era pool that also includes pre-IPL greats from every cricketing nation." } },
+      { "@type": "Question", "name": "Is Guess the Cricketer free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is completely free with no login, no downloads and no real money. Just daily bragging rights and a shareable emoji grid." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23a8322b'/%3E%3Cpath d='M50 6a44 44 0 000 88' fill='none' stroke='%23f3ead2' stroke-width='4' stroke-dasharray='6 6'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <header class="masthead">
+      <button id="themeBtn" class="theme-btn" type="button" aria-label="Toggle theme">☾</button>
+      <p class="mast-kicker">The Daily Pavilion</p>
+      <h1 class="mast-title">Guess the <span class="amp">Cricketer</span></h1>
+      <p class="mast-sub"><span>Puzzle <b id="puzzleNo">#—</b></span><span aria-hidden="true">·</span><span>8 guesses</span></p>
+    </header>
+
+    <main>
+      <div class="controls" role="group" aria-label="Game modes">
+        <div class="seg" id="modeSeg" role="group" aria-label="Difficulty">
+          <button type="button" data-mode="ipl" aria-pressed="true">🏏 IPL Mode</button>
+          <button type="button" data-mode="legend" aria-pressed="false">🎓 Legend Mode</button>
+        </div>
+        <button type="button" id="unlimitedBtn" class="pill-btn" aria-pressed="false">Unlimited ∞</button>
+      </div>
+      <p class="unlimited-banner">Unlimited practice — this does not affect your streak</p>
+
+      <div class="key" aria-hidden="true">
+        <span><i class="k-exact"></i> Exact</span>
+        <span><i class="k-close"></i> Close</span>
+        <span><i class="k-wrong"></i> Wrong</span>
+        <span>▲▼ higher / lower</span>
+        <button type="button" class="key-help" id="keyHelp" aria-hidden="false" aria-label="What does close mean?">what's “close”?</button>
+      </div>
+      <div class="key-detail" id="keyDetail" hidden>
+        <p><strong>Roles are Batter, Bowler, Allrounder, Keeper.</strong> A yellow Role tile means a <em>related</em> role: Keeper ↔ Batter are related, and Allrounder is related to every specialist — so yellow on Batter with grey on Bowler points at a Keeper.</p>
+        <p><strong>Country:</strong> yellow = same region (e.g. subcontinent). <strong>Bowl:</strong> yellow = same family (pace ↔ pace, spin ↔ spin). <strong>Debut / No.:</strong> yellow = within 3, arrow points toward the answer. A dashed <strong>?</strong> tile means the mystery player's number isn't on record — nothing to compare.</p>
+      </div>
+
+      <div class="legend" aria-hidden="true">
+        <span>Country</span><span>Role</span><span>Bat</span><span>Bowl</span><span>Debut</span><span>IPL</span><span>No.</span>
+      </div>
+
+      <div class="board" id="board" aria-label="Your guesses"></div>
+
+      <div class="inputbar">
+        <div class="input-shell">
+          <input id="guessInput" type="text" autocomplete="off" autocapitalize="words"
+                 spellcheck="false" placeholder="Type a cricketer's name…"
+                 aria-label="Guess a cricketer" role="combobox" aria-expanded="false" aria-autocomplete="list" />
+          <button id="goBtn" class="go-btn" type="button" disabled>Guess</button>
+        </div>
+        <div class="ac" id="autocomplete" role="listbox" aria-label="Matching cricketers"></div>
+      </div>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <section class="result" id="result" aria-live="polite"></section>
+
+      <div class="stats" aria-label="Your statistics">
+        <div class="stat"><div class="s-num" id="statPlayed">0</div><div class="s-lab">Played</div></div>
+        <div class="stat"><div class="s-num" id="statWin">0%</div><div class="s-lab">Win rate</div></div>
+        <div class="stat"><div class="s-num" id="statStreak">0</div><div class="s-lab">Streak</div></div>
+        <div class="stat"><div class="s-num" id="statMax">0</div><div class="s-lab">Best</div></div>
+      </div>
+
+      <details class="yesterday" id="yesterday">
+        <summary>Yesterday's answer</summary>
+        <p class="y-body" id="yBody"></p>
+        <p class="y-meta" id="yMeta"></p>
+      </details>
+    </main>
+
+    <!-- ================= Crawlable content ================= -->
+    <section class="prose">
+      <h2>How to play Guess the Cricketer</h2>
+      <p><b>Guess the Cricketer</b> is a daily cricket guessing game — think of it as a cricket wordle for the sport we actually argue about. Every day there is one mystery cricketer to identify, and you get <b>eight guesses</b> to name them. Type any player from the pool and the game grades seven attributes with coloured tiles.</p>
+      <ul>
+        <li><b>Green (exact)</b> — that attribute is a perfect match.</li>
+        <li><b>Yellow (close)</b> — you are warm: the country is in the same region, the role is related (an all-rounder is close to a batter or bowler), the bowling is the same family (pace vs spin), or a number is within three.</li>
+        <li><b>Grey (wrong)</b> — no match on that attribute.</li>
+        <li><b>▲ / ▼ arrows</b> — on debut year and shirt number, they tell you whether the answer is higher or lower than your guess.</li>
+      </ul>
+      <p>The seven feedback columns are <b>country, role, batting hand, bowling style, debut year, IPL team</b> and <b>shirt number</b>. Cross-reference the clues from each guess to narrow the field — a green country plus a yellow role plus a "debut ▼" tells you a lot.</p>
+
+      <h3>IPL mode vs Legend mode</h3>
+      <p><b>IPL mode</b> is the easy front door: the answer is always a cricketer who has played in the Indian Premier League, so every name is instantly recognisable. <b>Legend mode</b> opens the full cross-era pool — Bradman, Sobers, Kapil Dev and Wasim Akram sit alongside today's stars — for players who want a proper challenge. There is also an <b>unlimited</b> practice mode that serves a fresh random cricketer whenever you want and never touches your daily streak.</p>
+
+      <h3>Share and streaks</h3>
+      <p>When you finish, tap share to post a <b>spoiler-free emoji grid</b> — just the tile colours, the puzzle number and your streak — straight to WhatsApp or any app. Your streak, win rate and archive are saved on your device, so come back tomorrow for a new cricketer and keep the run alive.</p>
+
+      <h3>Frequently asked questions</h3>
+      <p><b>Is it free?</b> Yes — no login, no downloads, no real money. <b>When does the puzzle reset?</b> At midnight India Standard Time (IST). <b>Do I need to know obscure players?</b> Not in IPL mode — it sticks to famous, IPL-recognisable names. Legend mode is where the deep cuts live.</p>
+    </section>
+
+    <footer>
+      <p class="tag">Free, no login, no real money — just bragging rights.</p>
+      <nav aria-label="More games">
+        <span class="copy">More games from the same stable — coming soon.</span>
+      </nav>
+      <p class="copy">A daily cricket puzzle · plays offline · your streak stays on your device</p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
