@@ -44,6 +44,7 @@
     { name: "KL Rahul", country: "India", role: "Keeper", bat: "Right", bowl: "—", debut: 2014, ipl: "LSG", num: 1 },
     { name: "Shikhar Dhawan", country: "India", role: "Batter", bat: "Left", bowl: "Right-arm offbreak", debut: 2010, ipl: "PBKS", num: 42 },
     { name: "Rishabh Pant", country: "India", role: "Keeper", bat: "Left", bowl: "—", debut: 2017, ipl: "DC", num: 17 },
+    { name: "Shreyas Iyer", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 2017, ipl: "KKR", num: 41 },
     { name: "Hardik Pandya", country: "India", role: "Allrounder", bat: "Right", bowl: "Right-arm fast-medium", debut: 2016, ipl: "MI", num: 33 },
     { name: "Mohammed Shami", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2013, ipl: "GT", num: 11 },
     { name: "Bhuvneshwar Kumar", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2012, ipl: "SRH", num: 15 },
