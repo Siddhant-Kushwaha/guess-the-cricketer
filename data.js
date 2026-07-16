@@ -61,7 +61,7 @@
     { name: "Robin Uthappa", country: "India", role: "Keeper", bat: "Right", bowl: "—", debut: 2006, ipl: "KKR", num: 77 },
     { name: "Dinesh Karthik", country: "India", role: "Keeper", bat: "Right", bowl: "—", debut: 2004, ipl: "RCB", num: 21 },
     { name: "Manish Pandey", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 2015, ipl: "SRH", num: 21 },
-    { name: "Kedar Jadhav", country: "India", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2014, ipl: "CSK", num: 79 },
+    { name: "Kedar Jadhav", country: "India", role: "Allrounder", bat: "Right", bowl: "Right-arm offbreak", debut: 2014, ipl: "CSK", num: 79 },
     { name: "Deepak Chahar", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2018, ipl: "MI", num: 90 },
     { name: "Washington Sundar", country: "India", role: "Allrounder", bat: "Left", bowl: "Right-arm offbreak", debut: 2017, ipl: "GT", num: 5 },
     { name: "Axar Patel", country: "India", role: "Allrounder", bat: "Left", bowl: "Left-arm orthodox", debut: 2014, ipl: "DC", num: 20 },
