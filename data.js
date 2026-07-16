@@ -89,11 +89,11 @@
     { name: "Praveen Kumar", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2007, ipl: "RCB", num: null },
     { name: "S Sreesanth", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2005, ipl: "RR", num: null },
     { name: "Wriddhiman Saha", country: "India", role: "Keeper", bat: "Right", bowl: "—", debut: 2010, ipl: "GT", num: null },
-    { name: "Murali Vijay", country: "India", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2010, ipl: "CSK", num: null },
+    { name: "Murali Vijay", country: "India", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2008, ipl: "CSK", num: null },
     { name: "Parthiv Patel", country: "India", role: "Keeper", bat: "Left", bowl: "—", debut: 2002, ipl: "MI", num: null },
     { name: "Mohit Sharma", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2013, ipl: "GT", num: null },
     { name: "Navdeep Saini", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2019, ipl: "RCB", num: 96 },
-    { name: "Abhishek Sharma", country: "India", role: "Batter", bat: "Left", bowl: "Left-arm orthodox", debut: 2024, ipl: "SRH", num: 4 },
+    { name: "Abhishek Sharma", country: "India", role: "Allrounder", bat: "Left", bowl: "Left-arm orthodox", debut: 2024, ipl: "SRH", num: 4 },
     { name: "Sai Sudharsan", country: "India", role: "Batter", bat: "Left", bowl: "—", debut: 2023, ipl: "GT", num: 66 },
     { name: "Nitish Kumar Reddy", country: "India", role: "Allrounder", bat: "Right", bowl: "Right-arm medium", debut: 2024, ipl: "SRH", num: 88 },
     { name: "Dhruv Jurel", country: "India", role: "Keeper", bat: "Right", bowl: "—", debut: 2024, ipl: "RR", num: null },
@@ -107,6 +107,9 @@
     { name: "Avesh Khan", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 2022, ipl: "LSG", num: null },
     { name: "Khaleel Ahmed", country: "India", role: "Bowler", bat: "Right", bowl: "Left-arm fast-medium", debut: 2018, ipl: "DC", num: null },
     { name: "Ajit Agarkar", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 1998, ipl: "KKR", num: null },
+    { name: "Suresh Raina", country: "India", role: "Batter", bat: "Left", bowl: "Right-arm offbreak", debut: 2005, ipl: "CSK", num: 3 },
+    { name: "Umesh Yadav", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2010, ipl: "KKR", num: null },
+    { name: "Mayank Agarwal", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 2018, ipl: "PBKS", num: null },
 
     // ---------- INDIA — legends (pre-IPL, cross-era) ----------
     { name: "Sunil Gavaskar", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 1971, ipl: "—", num: null },
@@ -163,6 +166,7 @@
     { name: "Andrew Symonds", country: "Australia", role: "Allrounder", bat: "Right", bowl: "Right-arm medium", debut: 1998, ipl: "—", num: 63 },
     { name: "Michael Bevan", country: "Australia", role: "Batter", bat: "Left", bowl: "Left-arm wrist-spin", debut: 1994, ipl: "—", num: null },
     { name: "Jake Fraser-McGurk", country: "Australia", role: "Batter", bat: "Right", bowl: "—", debut: 2024, ipl: "DC", num: null },
+    { name: "Chris Lynn", country: "Australia", role: "Batter", bat: "Right", bowl: "—", debut: 2016, ipl: "KKR", num: null },
 
     // ---------- ENGLAND ----------
     { name: "Ben Stokes", country: "England", role: "Allrounder", bat: "Left", bowl: "Right-arm fast-medium", debut: 2011, ipl: "CSK", num: 55 },
@@ -226,13 +230,15 @@
     { name: "Temba Bavuma", country: "South Africa", role: "Batter", bat: "Right", bowl: "Right-arm medium", debut: 2014, ipl: "—", num: null },
     { name: "Rassie van der Dussen", country: "South Africa", role: "Batter", bat: "Right", bowl: "Legbreak", debut: 2018, ipl: "RR", num: 72 },
     { name: "Keshav Maharaj", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Left-arm orthodox", debut: 2016, ipl: "RR", num: 16 },
-    { name: "Tabraiz Shamsi", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Left-arm wrist-spin", debut: 2016, ipl: "—", num: null },
-    { name: "Gerald Coetzee", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2023, ipl: "MI", num: null },
+    { name: "Tabraiz Shamsi", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Left-arm wrist-spin", debut: 2016, ipl: "—", num: 26 },
+    { name: "Gerald Coetzee", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2023, ipl: "MI", num: 62 },
     { name: "Ryan Rickelton", country: "South Africa", role: "Keeper", bat: "Left", bowl: "—", debut: 2022, ipl: "MI", num: 44 },
     { name: "Kyle Verreynne", country: "South Africa", role: "Keeper", bat: "Right", bowl: "—", debut: 2020, ipl: "—", num: 91 },
     { name: "Imran Tahir", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Legbreak", debut: 2011, ipl: "CSK", num: 99 },
     { name: "Vernon Philander", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 2007, ipl: "—", num: 24 },
     { name: "JP Duminy", country: "South Africa", role: "Allrounder", bat: "Left", bowl: "Right-arm offbreak", debut: 2004, ipl: "DC", num: 21 },
+    { name: "Jonty Rhodes", country: "South Africa", role: "Batter", bat: "Right", bowl: "—", debut: 1992, ipl: "—", num: null },
+    { name: "Lance Klusener", country: "South Africa", role: "Allrounder", bat: "Left", bowl: "Right-arm fast-medium", debut: 1996, ipl: "—", num: null },
 
     // ---------- NEW ZEALAND ----------
     { name: "Kane Williamson", country: "New Zealand", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2010, ipl: "SRH", num: 22 },
@@ -286,11 +292,12 @@
     { name: "Rovman Powell", country: "West Indies", role: "Batter", bat: "Right", bowl: "Right-arm medium", debut: 2016, ipl: "DC", num: 52 },
     { name: "Shai Hope", country: "West Indies", role: "Keeper", bat: "Right", bowl: "—", debut: 2015, ipl: "DC", num: 4 },
     { name: "Alzarri Joseph", country: "West Indies", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2016, ipl: "GT", num: 8 },
-    { name: "Shamar Joseph", country: "West Indies", role: "Bowler", bat: "Left", bowl: "Right-arm fast", debut: 2024, ipl: "LSG", num: 70 },
+    { name: "Shamar Joseph", country: "West Indies", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2024, ipl: "LSG", num: 70 },
     { name: "Akeal Hosein", country: "West Indies", role: "Bowler", bat: "Left", bowl: "Left-arm orthodox", debut: 2021, ipl: "—", num: 7 },
     { name: "Kyle Mayers", country: "West Indies", role: "Allrounder", bat: "Left", bowl: "Right-arm medium", debut: 2020, ipl: "LSG", num: 71 },
     { name: "Sherfane Rutherford", country: "West Indies", role: "Batter", bat: "Left", bowl: "Right-arm medium", debut: 2018, ipl: "GT", num: 68 },
     { name: "Roston Chase", country: "West Indies", role: "Allrounder", bat: "Right", bowl: "Right-arm offbreak", debut: 2016, ipl: "—", num: 10 },
+    { name: "Darren Sammy", country: "West Indies", role: "Allrounder", bat: "Right", bowl: "Right-arm fast-medium", debut: 2004, ipl: "—", num: null },
 
     // ---------- PAKISTAN ----------
     { name: "Babar Azam", country: "Pakistan", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2015, ipl: "—", num: 56 },
@@ -332,6 +339,7 @@
     { name: "Iftikhar Ahmed", country: "Pakistan", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2015, ipl: "—", num: 95 },
     { name: "Kamran Akmal", country: "Pakistan", role: "Keeper", bat: "Right", bowl: "—", debut: 2002, ipl: "RR", num: 23 },
     { name: "Abdul Razzaq", country: "Pakistan", role: "Allrounder", bat: "Right", bowl: "Right-arm fast-medium", debut: 1996, ipl: "—", num: null },
+    { name: "Saqlain Mushtaq", country: "Pakistan", role: "Bowler", bat: "Right", bowl: "Right-arm offbreak", debut: 1995, ipl: "—", num: null },
 
     // ---------- SRI LANKA ----------
     { name: "Kumar Sangakkara", country: "Sri Lanka", role: "Keeper", bat: "Left", bowl: "—", debut: 2000, ipl: "KKR", num: 11 },
@@ -347,7 +355,7 @@
     { name: "Chaminda Vaas", country: "Sri Lanka", role: "Bowler", bat: "Left", bowl: "Left-arm fast-medium", debut: 1994, ipl: "DC", num: 22 },
     { name: "Aravinda de Silva", country: "Sri Lanka", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 1984, ipl: "—", num: null },
     { name: "Kusal Perera", country: "Sri Lanka", role: "Keeper", bat: "Left", bowl: "—", debut: 2013, ipl: "—", num: 55 },
-    { name: "Pathum Nissanka", country: "Sri Lanka", role: "Batter", bat: "Right", bowl: "—", debut: 2020, ipl: "—", num: 18 },
+    { name: "Pathum Nissanka", country: "Sri Lanka", role: "Batter", bat: "Right", bowl: "—", debut: 2021, ipl: "—", num: 18 },
     { name: "Nuwan Kulasekara", country: "Sri Lanka", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2003, ipl: "CSK", num: null },
     { name: "Kusal Mendis", country: "Sri Lanka", role: "Keeper", bat: "Right", bowl: "—", debut: 2015, ipl: "—", num: 13 },
     { name: "Dinesh Chandimal", country: "Sri Lanka", role: "Keeper", bat: "Right", bowl: "—", debut: 2010, ipl: "—", num: 56 },
@@ -379,7 +387,7 @@
     { name: "Rahmanullah Gurbaz", country: "Afghanistan", role: "Keeper", bat: "Right", bowl: "—", debut: 2019, ipl: "KKR", num: 21 },
     { name: "Noor Ahmad", country: "Afghanistan", role: "Bowler", bat: "Left", bowl: "Left-arm wrist-spin", debut: 2022, ipl: "CSK", num: 15 },
     { name: "Fazalhaq Farooqi", country: "Afghanistan", role: "Bowler", bat: "Left", bowl: "Left-arm fast-medium", debut: 2021, ipl: "SRH", num: 5 },
-    { name: "Ibrahim Zadran", country: "Afghanistan", role: "Batter", bat: "Right", bowl: "—", debut: 2020, ipl: "—", num: 18 },
+    { name: "Ibrahim Zadran", country: "Afghanistan", role: "Batter", bat: "Right", bowl: "—", debut: 2019, ipl: "—", num: 18 },
     { name: "Naveen-ul-Haq", country: "Afghanistan", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 2016, ipl: "LSG", num: 78 },
     { name: "Azmatullah Omarzai", country: "Afghanistan", role: "Allrounder", bat: "Right", bowl: "Right-arm fast-medium", debut: 2021, ipl: "PBKS", num: 9 },
     { name: "Mohammad Shahzad", country: "Afghanistan", role: "Keeper", bat: "Right", bowl: "—", debut: 2009, ipl: "—", num: 77 },
