@@ -80,15 +80,15 @@
   function pad2(n) { return n < 10 ? "0" + n : "" + n; }
 
   /* ---------- pools per mode ---------- */
-  function poolFor(mode) {
-    // Guess pool: large. IPL mode = anyone who has played IPL; Legend = everyone.
-    if (mode === "ipl") return ALL.filter(function (p) { return p.ipls && p.ipls.length > 0; });
-    return ALL.slice(); // legend = full cross-era list
-  }
-  // Answer pool: the curated famous set. Guess-only players (e.g. uncapped IPL
-  // stars) set answerable:false and can be typed but never become the mystery player.
+  // Guess pool: EVERYONE is typeable in every mode — you can guess any player for clues.
+  function guessPool() { return ALL.slice(); }
+  // Answer pool per mode (the curated set the mystery player is drawn from).
+  //   IPL mode    = anyone who has played the IPL (broad, recognisable)
+  //   Legends mode = only flagged all-time greats
+  // answerable:false players (e.g. uncapped IPL stars) are typeable but never the answer.
   function answerPoolFor(mode) {
-    return poolFor(mode).filter(function (p) { return p.answerable !== false; });
+    if (mode === "legend") return ALL.filter(function (p) { return p.legend && p.answerable !== false; });
+    return ALL.filter(function (p) { return p.ipls && p.ipls.length > 0 && p.answerable !== false; });
   }
   // A stable per-mode salt so IPL and Legend get independent daily answers.
   var SALT = { ipl: 19008, legend: 45777 };
@@ -750,7 +750,7 @@
     var q = norm(input.value.trim());
     goBtn.disabled = G.over || !input.value.trim();
     if (!q) { closeAc(); return; }
-    var pool = poolFor(G.mode);
+    var pool = guessPool();
     var scored = [];
     for (var i = 0; i < pool.length; i++) {
       var p = pool[i];
