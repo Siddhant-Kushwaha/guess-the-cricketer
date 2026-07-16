@@ -78,16 +78,25 @@
       <div class="duel-banner" id="duelBanner" hidden></div>
 
       <div class="key" aria-hidden="true">
-        <span><i class="k-exact"></i> Exact</span>
-        <span><i class="k-close"></i> Close</span>
-        <span><i class="k-wrong"></i> Wrong</span>
-        <span>▲▼ higher / lower</span>
-        <button type="button" class="key-help" id="keyHelp" aria-hidden="false" aria-label="What does close mean?">what's “close”?</button>
+        <span><i class="k-exact"></i> Green</span>
+        <span><i class="k-close"></i> Yellow</span>
+        <span><i class="k-wrong"></i> Grey</span>
+        <button type="button" class="key-help" id="keyHelp" aria-hidden="false" aria-label="What the colours mean">what do the colours mean?</button>
       </div>
       <div class="key-detail" id="keyDetail" hidden>
-        <p><strong>Roles are Batter, Bowler, Allrounder, Keeper</strong> (as listed on ESPNcricinfo). A yellow Role tile means a <em>related</em> role: Keeper ↔ Batter are related, and Allrounder is related to every specialist — so yellow on Batter with grey on Bowler points at a Keeper.</p>
-        <p><strong>Country:</strong> yellow = same region. <strong>Bowl:</strong> yellow = same family (pace ↔ pace, spin ↔ spin). <strong>Debut:</strong> yellow = within 3 years, arrow points toward the answer.</p>
-        <p><strong>IPL:</strong> the tile shows your guess’s current IPL team. Green = the mystery player is <em>currently</em> at that team; yellow = they played there in the <em>past</em>; grey = they never played there. <strong>World Cup:</strong> green = same World Cup pedigree as the answer (Won / in a Squad / Never); yellow = one step off. The answer's full IPL journey and World Cup status are revealed when you solve it.</p>
+        <table class="clue-table">
+          <thead><tr><th>Clue</th><th><i class="k-exact"></i> Green</th><th><i class="k-close"></i> Yellow</th></tr></thead>
+          <tbody>
+            <tr><td>Country</td><td>same country</td><td>same region</td></tr>
+            <tr><td>Role</td><td>same role</td><td>related role</td></tr>
+            <tr><td>Bat</td><td>same hand</td><td>—</td></tr>
+            <tr><td>Bowl</td><td>same style</td><td>same type (pace / spin)</td></tr>
+            <tr><td>Debut</td><td>same year</td><td>within 3 yrs · ▲▼</td></tr>
+            <tr><td>IPL</td><td>plays there now</td><td>played there before</td></tr>
+            <tr><td>World Cup</td><td>same status</td><td>one step off</td></tr>
+          </tbody>
+        </table>
+        <p class="clue-note">The IPL &amp; World Cup tiles show <em>your guess's</em> value. Roles follow ESPNcricinfo. Solve it to reveal the mystery player's full card.</p>
       </div>
 
       <div class="legend" aria-hidden="true">
@@ -126,36 +135,27 @@
 
     <!-- ================= Crawlable content ================= -->
     <section class="prose">
-      <h2>How to play Guess the Cricketer</h2>
-      <p><b>Guess the Cricketer</b> is a daily cricket guessing game — think of it as a cricket wordle for the sport we actually argue about. Every day there is one mystery cricketer to identify, and you get <b>eight guesses</b> to name them. Type any player from the pool and the game grades seven attributes with coloured tiles.</p>
-      <ul>
-        <li><b>Green (exact)</b> — that attribute is a perfect match.</li>
-        <li><b>Yellow (close)</b> — you are warm: same region, a related role (an all-rounder is close to a batter or bowler), the same bowling family (pace vs spin), a shared IPL franchise, or one step off on World Cup pedigree.</li>
-        <li><b>Grey (wrong)</b> — no match on that attribute.</li>
-        <li><b>▲ / ▼ arrows</b> — on the debut-year clue, they tell you whether the answer is higher or lower than your guess.</li>
-      </ul>
-      <p>The seven feedback columns are <b>country, role, batting hand, bowling style, debut year, IPL history</b> and <b>World Cup</b>. The IPL tile is green when your guess's current team matches the answer's, yellow when they've shared any franchise. World Cup is green when your guess has the same pedigree as the answer (won it, was in a squad, or never). Cross-reference every clue to narrow the field.</p>
-
-      <h3>IPL mode vs Legend mode</h3>
-      <p><b>IPL mode</b> is the easy front door: the answer is always a cricketer who has played in the Indian Premier League, so every name is instantly recognisable. <b>Legend mode</b> opens the full cross-era pool — Bradman, Sobers, Kapil Dev and Wasim Akram sit alongside today's stars — for players who want a proper challenge. There is also an <b>unlimited</b> practice mode that serves a fresh random cricketer whenever you want and never touches your daily streak.</p>
-
-      <h3>Share and streaks</h3>
-      <p>When you finish, tap share to post a <b>spoiler-free emoji grid</b> — just the tile colours, the puzzle number and your streak — straight to WhatsApp or any app. Your streak, win rate and archive are saved on your device, so come back tomorrow for a new cricketer and keep the run alive.</p>
-
-      <h3>Frequently asked questions</h3>
-      <p><b>Is it free?</b> Yes — no login, no downloads, no real money. <b>When does the puzzle reset?</b> At midnight India Standard Time (IST). <b>Do I need to know obscure players?</b> Not in IPL mode — it sticks to famous, IPL-recognisable names. Legend mode is where the deep cuts live.</p>
+      <details class="prose-block">
+        <summary>How to play</summary>
+        <p><b>Guess the Cricketer</b> is a daily cricket guessing game. Each day there's one mystery cricketer and you get <b>eight guesses</b>. Type any player and the game grades seven clues — country, role, batting hand, bowling style, debut year, IPL and World Cup — with green, yellow and grey tiles (see “what do the colours mean?” above the board). A new cricketer drops every midnight IST.</p>
+      </details>
+      <details class="prose-block">
+        <summary>Modes</summary>
+        <p><b>IPL mode</b> — the mystery player is anyone who's played the IPL, so the names are recognisable. <b>Legends mode</b> — the answer is only an all-time great. In both modes you can still type and guess <em>any</em> cricketer to get clues. <b>Unlimited</b> practice serves a fresh random player and never touches your streak.</p>
+      </details>
+      <details class="prose-block">
+        <summary>FAQ</summary>
+        <p><b>Is it free?</b> Yes — no login, no downloads, no real money. <b>When does it reset?</b> Midnight India Standard Time. <b>Where does the data come from?</b> Player roles follow ESPNcricinfo; facts are checked against public sources. Spot something wrong? Use the “report” link after you solve.</p>
+      </details>
     </section>
 
     <footer>
-      <p class="tag">Free, no login, no real money — just bragging rights.</p>
-      <nav aria-label="More games">
-        <span class="copy">More games from the same stable — coming soon.</span>
-      </nav>
-      <p class="copy">A daily cricket puzzle · plays offline · your streak stays on your device</p>
+      <p class="tag">Free · no login · just bragging rights.</p>
+      <p class="copy">A new cricketer every midnight IST · plays offline · your streak stays on your device</p>
     </footer>
   </div>
 
-  <script src="data.js?v=19"></script>
-  <script src="game.js?v=19"></script>
+  <script src="data.js?v=20"></script>
+  <script src="game.js?v=20"></script>
 </body>
 </html>

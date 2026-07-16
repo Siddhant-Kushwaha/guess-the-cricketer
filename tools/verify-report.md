@@ -1,6 +1,6 @@
 # Guess the Cricketer — data verification report
 
-Generated: 2026-07-16T20:26:48.118Z
+Generated: 2026-07-16T21:59:20.768Z
 Source of truth: English Wikipedia MediaWiki API ({{Infobox cricketer}} wikitext)
 
 ## Summary
@@ -9,134 +9,106 @@ Source of truth: English Wikipedia MediaWiki API ({{Infobox cricketer}} wikitext
 - Pages parsed with an infobox: **364**
 - Unresolved / unparseable: **0**
 - Fetch failures: **0**
-- Total field mismatches: **83**
+- Total field mismatches: **60**
 - Players with >=1 IPL franchise found in infobox: **244**
 
 Mismatches by field:
 
 | Field | Count | Note |
 | --- | --- | --- |
-| bat | 12 | batting hand — objective, high confidence |
+| bat | 3 | batting hand — objective, high confidence |
 | bowl | 32 | bowling style — only counted when both sides assert a style |
-| debut | 11 | int'l debut year (min across formats) |
 | country | 2 | representative country |
-| role | 26 | role — subjective on Wikipedia; low confidence |
+| role | 23 | role — subjective on Wikipedia; low confidence |
 
 ## Most confident likely errors (top 15 by confidence)
 
 | # | Player | Field | Ours | Wikipedia | Confidence | Evidence (wikitext) |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Piyush Chawla | bat | Right | Left | 0.90 | Left-handed |
-| 2 | RP Singh | bat | Left | Right | 0.90 | Right-handed |
-| 3 | Bishan Singh Bedi | bat | Left | Right | 0.90 | Right-handed |
-| 4 | Navjot Singh Sidhu | debut | 1987 | 1983 | 0.90 | intl debut 1983 |
-| 5 | Josh Hazlewood | bat | Right | Left | 0.90 | Left-handed |
-| 6 | Kagiso Rabada | bat | Right | Left | 0.90 | Left-handed |
-| 7 | Marco Jansen | bat | Left | Right | 0.90 | Right-handed |
-| 8 | Morne Morkel | bat | Right | Left | 0.90 | Left-handed |
-| 9 | Trent Boult | bat | Left | Right | 0.90 | Right-handed |
-| 10 | Shamar Joseph | bat | Right | Left | 0.90 | Left-handed |
-| 11 | Taskin Ahmed | bat | Right | Left | 0.90 | Left-handed |
-| 12 | Noor Ahmad | bat | Left | Right | 0.90 | Right-handed |
-| 13 | Fazalhaq Farooqi | bat | Left | Right | 0.90 | Right-handed |
-| 14 | Tim David | country | Australia | Singapore | 0.85 | Singapore |
-| 15 | Eoin Morgan | country | England | Ireland | 0.85 | Ireland |
+| 1 | Bishan Singh Bedi | bat | Left | Right | 0.90 | Right-handed |
+| 2 | Marco Jansen | bat | Left | Right | 0.90 | Right-handed |
+| 3 | Shamar Joseph | bat | Right | Left | 0.90 | Left-handed |
+| 4 | Tim David | country | Australia | Singapore | 0.85 | Singapore |
+| 5 | Eoin Morgan | country | England | Ireland | 0.85 | Ireland |
+| 6 | T Natarajan | bowl | Left-arm fast-medium | Left-arm medium | 0.60 | Left-arm medium |
+| 7 | Varun Chakravarthy | bowl | Right-arm offbreak | Legbreak | 0.60 | Right-arm leg break googly |
+| 8 | Prasidh Krishna | bowl | Right-arm fast | Right-arm fast-medium | 0.60 | Right-arm fast-medium |
+| 9 | Munaf Patel | bowl | Right-arm medium | Right-arm fast-medium | 0.60 | Right arm fast medium |
+| 10 | Praveen Kumar | bowl | Right-arm medium | Right-arm fast-medium | 0.60 | Right-arm medium-fast |
+| 11 | S Sreesanth | bowl | Right-arm fast | Right-arm fast-medium | 0.60 | Right-arm fast-medium |
+| 12 | Mohit Sharma | bowl | Right-arm medium | Right-arm fast-medium | 0.60 | Right arm fast-medium |
+| 13 | Nitish Kumar Reddy | bowl | Right-arm medium | Right-arm fast-medium | 0.60 | Right-arm medium-fast |
+| 14 | Shivam Dube | bowl | Right-arm medium | Right-arm fast-medium | 0.60 | Right-arm medium fast |
+| 15 | Harshal Patel | bowl | Right-arm medium | Right-arm fast-medium | 0.60 | Right-arm fast-medium |
 
 ## All mismatches
 
 | Player | Field | Ours | Wikipedia | Wikitext snippet |
 | --- | --- | --- | --- | --- |
 | Aaron Finch | bowl | Legbreak | Left-arm orthodox | Slow left-arm orthodox |
-| AB de Villiers | role | Batter | Keeper | Wicket-keeper-batter |
 | Ajinkya Rahane | bowl | Right-arm medium | Right-arm offbreak | Right-arm off spin |
 | Ajit Agarkar | role | Bowler | Allrounder | bowling all-rounder |
 | Ambati Rayudu | role | Batter | Keeper | Wicket-keeper batsman |
 | Andrew Flintoff | bowl | Right-arm fast | Right-arm fast-medium | Right-arm fast-medium |
-| Angelo Mathews | debut | 2009 | 2008 | intl debut 2008 |
 | Aravinda de Silva | role | Batter | Allrounder | Batting All-Rounder |
 | Bishan Singh Bedi | bat | Left | Right | Right-handed |
 | Chris Gayle | role | Batter | Allrounder | All-rounder |
-| Chris Lynn | debut | 2016 | 2014 | intl debut 2014 |
 | Colin de Grandhomme | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium-fast |
-| Devon Conway | role | Batter | Keeper | Wicket-keeper-batter |
 | Dwayne Bravo | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium-fast |
 | Eoin Morgan | country | England | Ireland | Ireland |
-| Fazalhaq Farooqi | bat | Left | Right | Right-handed |
 | Fazalhaq Farooqi | bowl | Left-arm fast-medium | Left-arm fast | Left-arm fast |
 | Glenn Phillips | role | Keeper | Allrounder | Occasionally Wicket-keeper-batter / All-rounder |
 | Harshal Patel | bowl | Right-arm medium | Right-arm fast-medium | Right-arm fast-medium |
 | Harshit Rana | bowl | Right-arm fast-medium | Right-arm fast | Right-arm fast |
 | Harshit Rana | role | Bowler | Allrounder | Bowling all-rounder |
-| Ian Botham | debut | 1977 | 1976 | intl debut 1976 |
 | James Neesham | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium-fast |
-| James Neesham | debut | 2013 | 2012 | intl debut 2012 |
-| Josh Hazlewood | bat | Right | Left | Left-handed |
-| Kagiso Rabada | bat | Right | Left | Left-handed |
-| Kagiso Rabada | debut | 2015 | 2014 | intl debut 2014 |
 | Kevin O'Brien | bowl | Right-arm medium | Right-arm fast-medium | Right arm medium-fast |
 | Kyle Jamieson | role | Bowler | Allrounder | Bowling all-rounder |
 | Lungi Ngidi | bowl | Right-arm fast | Right-arm fast-medium | Right-arm fast-medium |
 | Mahmudullah | role | Allrounder | Batter | Middle-order batter |
 | Marco Jansen | bat | Left | Right | Right-handed |
-| Marco Jansen | role | Bowler | Allrounder | Bowling all-rounder |
 | Mark Waugh | role | Batter | Allrounder | All-rounder |
 | Marlon Samuels | role | Allrounder | Batter | Top-order batsman |
 | Mashrafe Mortaza | bowl | Right-arm fast-medium | Right-arm fast | Right arm Fast |
-| Matthew Hayden | debut | 1994 | 1993 | intl debut 1993 |
 | Mitchell Marsh | bowl | Right-arm fast-medium | Right-arm medium | Right-arm medium |
 | Mohit Sharma | bowl | Right-arm medium | Right-arm fast-medium | Right arm fast-medium |
-| Morne Morkel | bat | Right | Left | Left-handed |
 | Munaf Patel | bowl | Right-arm medium | Right-arm fast-medium | Right arm fast medium |
 | Nathan Coulter-Nile | role | Bowler | Allrounder | Bowling all-rounder |
-| Navjot Singh Sidhu | debut | 1987 | 1983 | intl debut 1983 |
 | Nitish Kumar Reddy | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium-fast |
-| Noor Ahmad | bat | Left | Right | Right-handed |
 | Noor Ahmad | bowl | Left-arm wrist-spin | Left-arm orthodox | Left-arm unorthodox spin |
 | Nuwan Kulasekara | bowl | Right-arm medium | Right-arm fast-medium | Right-arm fast-medium |
 | Ollie Pope | role | Batter | Keeper | Middle-order batter, Wicket-keeper |
-| Piyush Chawla | bat | Right | Left | Left-handed |
+| Paul Stirling | role | Allrounder | Batter | Top-order batter |
 | Piyush Chawla | role | Bowler | Allrounder | All-rounder |
 | Prasidh Krishna | bowl | Right-arm fast | Right-arm fast-medium | Right-arm fast-medium |
 | Praveen Kumar | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium-fast |
-| Quinton de Kock | debut | 2013 | 2012 | intl debut 2012 |
 | Richard Hadlee | bowl | Right-arm fast-medium | Right-arm fast | Right-arm fast |
 | Rovman Powell | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium-fast |
-| RP Singh | bat | Left | Right | Right-handed |
 | Ruturaj Gaikwad | role | Batter | Keeper | Batsman, Occasionally Wicket Keeper |
 | S Sreesanth | bowl | Right-arm fast | Right-arm fast-medium | Right-arm fast-medium |
 | Saim Ayub | role | Batter | Allrounder | All-rounder |
 | Sam Curran | bowl | Left-arm medium | Left-arm fast-medium | Left-arm medium-fast |
-| Scott Edwards | debut | 2018 | 2017 | intl debut 2017 |
-| Sean Abbott | role | Bowler | Allrounder | Bowling all-rounder |
 | Shamar Joseph | bat | Right | Left | Left-handed |
 | Shardul Thakur | role | Allrounder | Bowler | Bowler |
 | Sherfane Rutherford | bowl | Right-arm medium | Right-arm fast-medium | Right-arm Fast medium |
 | Shivam Dube | bowl | Right-arm medium | Right-arm fast-medium | Right-arm medium fast |
-| Sohail Tanvir | role | Bowler | Allrounder | Bowling All-Rounder |
 | Suryakumar Yadav | bowl | Right-arm medium | Right-arm offbreak | Right-arm off break |
 | T Natarajan | bowl | Left-arm fast-medium | Left-arm medium | Left-arm medium |
 | Tabraiz Shamsi | bowl | Left-arm wrist-spin | Left-arm orthodox | Left-arm unorthodox spin |
-| Taskin Ahmed | bat | Right | Left | Left-handed |
 | Tilak Varma | role | Batter | Allrounder | Batting all-rounder |
 | Tillakaratne Dilshan | role | Batter | Allrounder | All Rounder and Wicketkeeper |
 | Tim David | country | Australia | Singapore | Singapore |
-| Tim David | debut | 2021 | 2019 | intl debut 2019 |
-| Trent Boult | bat | Left | Right | Right-handed |
 | Tristan Stubbs | role | Batter | Keeper | Batsman, Occasional wicket-keeper |
 | Umar Gul | bowl | Right-arm fast | Right-arm fast-medium | Right-arm fast-medium |
 | Varun Chakravarthy | bowl | Right-arm offbreak | Legbreak | Right-arm leg break googly |
+| Vernon Philander | role | Allrounder | Bowler | Bowler |
 | Viv Richards | role | Batter | Allrounder | Batting all-rounder |
-| Wasim Akram | debut | 1985 | 1984 | intl debut 1984 |
 | Younis Khan | bowl | Legbreak | Right-arm medium | Right-arm medium |
 | Yuvraj Singh | role | Allrounder | Batter | Middle order batsman |
 
 ## Ambiguous on Wikipedia (not counted as errors)
 
-| Player | Note |
-| --- | --- |
-| Chris Lynn | [IPL] data.js lists "KKR" but no IPL club found in infobox (clubs present, none recognized |
-| Michael Bracewell | [IPL] data.js lists "RCB" but no IPL club found in infobox (no club fields in infobox) |
-| Shoaib Malik | [IPL] data.js lists "DC" but no IPL club found in infobox (clubs present, none recognized  |
+_None._
 
 ## IPL FRANCHISE HISTORY
 
