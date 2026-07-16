@@ -126,16 +126,19 @@
         else if (gn === an) { res.state = "exact"; }
         else { var diff = Math.abs(gn - an); res.state = diff <= 3 ? "close" : "wrong"; res.arrow = gn < an ? "up" : "down"; }
       } else if (c === "ipls") {
-        // green: guess's LATEST team == answer's latest (show that team);
-        // yellow: they share a franchise but not the latest (show the SHARED team(s));
-        // grey: no overlap (show the guess's latest team).
-        var gl = (g && g.length) ? g[g.length - 1] : null;
-        var al = (a && a.length) ? a[a.length - 1] : null;
-        var shared = (g && a) ? g.filter(function (t) { return a.indexOf(t) !== -1; }) : [];
-        if (gl == null && al == null) { res.state = "exact"; res.val = "—"; }         // both never played IPL
-        else if (gl != null && al != null && gl === al) { res.state = "exact"; res.val = gl; }
-        else if (shared.length) { res.state = "close"; res.val = shared.join(" · "); } // show the franchise they share
-        else { res.state = "wrong"; res.val = gl || "—"; }
+        // The tile shows the GUESS's current (latest) IPL team, and the colour tells you
+        // the mystery player's relationship to THAT team:
+        //   green  = mystery player is currently at that team
+        //   yellow = mystery player played there in the past (but not now)
+        //   grey   = mystery player never played there
+        var gl = (g && g.length) ? g[g.length - 1] : null;   // guess's current team
+        var al = (a && a.length) ? a[a.length - 1] : null;   // answer's current team
+        res.val = gl || "—";
+        if (gl == null && al == null) res.state = "exact";               // both never played IPL
+        else if (gl == null) res.state = "wrong";                        // guess never played IPL — nothing to compare
+        else if (gl === al) res.state = "exact";                         // answer currently at guess's team
+        else if (a && a.indexOf(gl) !== -1) res.state = "close";         // answer played there before
+        else res.state = "wrong";                                        // answer never at that team
       } else if (c === "wc") {
         // green: same World Cup tier as the answer (so a correct guess is all-green);
         // yellow: one tier off (Won<->Squad or Squad<->Never); grey: opposite ends.
