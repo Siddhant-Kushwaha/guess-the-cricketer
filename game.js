@@ -162,6 +162,7 @@
       modeSeg = $("#modeSeg"), unlimitedBtn = $("#unlimitedBtn"),
       statPlayed = $("#statPlayed"), statWin = $("#statWin"),
       statStreak = $("#statStreak"), statMax = $("#statMax"),
+      duelBanner = $("#duelBanner"),
       fx = $("#fx");
 
   /* ================= game state ================= */
@@ -169,10 +170,20 @@
 
   function newGame(opts) {
     var mode = opts.mode, unlimited = !!opts.unlimited;
+    var duel = opts.duel || null;
     var info = istInfo();
     var dayNumber, answer, puzzleLabel;
 
-    if (unlimited) {
+    if (duel) {
+      // Duel: a fixed mystery player served from a friend's challenge link.
+      // Treated like an unlimited round for persistence/stats — it NEVER touches
+      // the daily streak, stats or saved daily progress.
+      answer = duel.answer;
+      mode = duel.mode || mode;
+      unlimited = true;
+      dayNumber = null;
+      puzzleLabel = "⚔ Duel";
+    } else if (unlimited) {
       var pool = answerPoolFor(mode);
       answer = pool[Math.floor(Math.random() * pool.length)];
       dayNumber = null;
@@ -183,9 +194,13 @@
       puzzleLabel = "#" + dayNumber;
     }
 
+    // Leaving a duel (any non-duel game) drops the stale #c= link so a refresh
+    // doesn't re-open the challenge after the player has moved on.
+    if (!duel) clearChallengeHash();
+
     G = {
       mode: mode, unlimited: unlimited, dayNumber: dayNumber, ymd: info.ymd,
-      answer: answer, guesses: [], results: [], over: false, won: false
+      answer: answer, guesses: [], results: [], over: false, won: false, duel: duel
     };
 
     // restore saved daily progress (only for the deterministic daily puzzle)
@@ -212,7 +227,10 @@
   /* ================= rendering ================= */
   function renderAll(puzzleLabel) {
     puzzleNoEl.textContent = puzzleLabel;
-    document.body.classList.toggle("is-unlimited", !!G.unlimited);
+    document.body.classList.toggle("is-unlimited", !!G.unlimited && !G.duel);
+    document.body.classList.toggle("is-duel", !!G.duel);
+    renderDuelBanner();
+    reflectControls();
     renderBoard();
     renderStats();
     renderYesterday();
@@ -220,6 +238,30 @@
     else hideResult();
     updateStatus();
     input.disabled = G.over; goBtn.disabled = G.over || !input.value.trim();
+  }
+
+  // Keep the mode segment + unlimited toggle visually in sync with the live
+  // game state (mode buttons, and the unlimited pill which is OFF during a duel).
+  function reflectControls() {
+    if (!G) return;
+    var btns = modeSeg.querySelectorAll("button");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].setAttribute("aria-pressed", btns[i].dataset.mode === G.mode ? "true" : "false");
+    }
+    var uOn = !!G.unlimited && !G.duel;
+    unlimitedBtn.classList.toggle("on", uOn);
+    unlimitedBtn.setAttribute("aria-pressed", uOn ? "true" : "false");
+    unlimitedBtn.textContent = uOn ? "Daily puzzle" : "Unlimited ∞";
+  }
+
+  function renderDuelBanner() {
+    if (!duelBanner) return;
+    if (!G.duel) { duelBanner.hidden = true; duelBanner.textContent = ""; return; }
+    var d = G.duel, by = d.by || "A friend";
+    duelBanner.textContent = d.s
+      ? by + " solved this in " + d.g + " guess" + (d.g === 1 ? "" : "es") + " — beat them."
+      : by + " couldn't solve it — can you?";
+    duelBanner.hidden = false;   // textContent keeps any friend name XSS-safe
   }
 
   function renderBoard() {
@@ -325,7 +367,7 @@
       setTimeout(function () {
         showResult(true);
         renderStats();
-        if (win) { celebrate(); sfxWin(); }
+        if (win) { celebrate(); sfxWin(); sfxRoar(); }
         else { sfxLose(); }
         if (navigator.vibrate) navigator.vibrate(win ? [40, 60, 40, 60, 120] : [120, 60, 120]);
       }, 620);
@@ -391,14 +433,20 @@
     resultEl.innerHTML = "";
 
     var verdict = document.createElement("p");
-    verdict.className = "verdict " + (won ? "win" : "lose");
-    verdict.textContent = won
-      ? "Caught! Solved in " + tries + "/" + MAX_GUESSES
-      : "Bowled. Better luck tomorrow";
+    if (G.duel) {
+      var dv = duelVerdict();
+      verdict.className = "verdict " + dv.cls;
+      verdict.textContent = dv.text;   // textContent keeps the friend name safe
+    } else {
+      verdict.className = "verdict " + (won ? "win" : "lose");
+      verdict.textContent = won
+        ? "Caught! Solved in " + tries + "/" + MAX_GUESSES
+        : "Bowled. Better luck tomorrow";
+    }
     resultEl.appendChild(verdict);
 
     var card = document.createElement("div");
-    card.className = "pcard" + (won ? "" : " lose");
+    card.className = "pcard" + (won ? "" : " lose") + (fresh ? " spotlight" : "");
     card.innerHTML =
       '<div class="pcard-top">' +
         '<div class="pcard-num">' + (a.num != null ? a.num : "—") + '</div>' +
@@ -427,12 +475,19 @@
     copyBtn.addEventListener("click", function () { copyText(buildShareText()); toast("Copied to clipboard"); });
     actions.appendChild(shareBtn);
     actions.appendChild(copyBtn);
-    if (G.unlimited) {
+    if (G.unlimited && !G.duel) {
       var nextBtn = document.createElement("button");
       nextBtn.className = "pill-btn";
       nextBtn.textContent = "Next random ↻";
       nextBtn.addEventListener("click", function () { newGame({ mode: G.mode, unlimited: true }); });
       actions.appendChild(nextBtn);
+    }
+    if (G.duel) {
+      var dailyBtn = document.createElement("button");
+      dailyBtn.className = "pill-btn";
+      dailyBtn.textContent = "Play today's puzzle →";
+      dailyBtn.addEventListener("click", function () { setMode(currentMode()); });
+      actions.appendChild(dailyBtn);
     }
     resultEl.appendChild(actions);
 
@@ -441,6 +496,9 @@
     pre.className = "share-preview show";
     pre.textContent = buildEmojiGridOnly();
     resultEl.appendChild(pre);
+
+    // Challenge a friend (or counter-challenge, in a duel) — same mystery cricketer.
+    resultEl.appendChild(buildChallengeBlock(!!G.duel));
 
     resultEl.classList.add("show");
     input.disabled = true;
@@ -464,14 +522,16 @@
     return lines.join("\n");
   }
   function buildShareText() {
-    var head = "Guess the Cricketer " + (G.unlimited ? "∞" : "#" + G.dayNumber) +
+    var label = G.duel ? "⚔ Duel" : (G.unlimited ? "∞" : "#" + G.dayNumber);
+    var head = "Guess the Cricketer " + label +
       "  " + (G.won ? (G.guesses.length + "/" + MAX_GUESSES) : "X/" + MAX_GUESSES) +
       "  " + (G.mode === "ipl" ? "🏏 IPL" : "🎓 Legend");
     var grid = buildEmojiGridOnly();
     var s = getStats();
     var streakLine = (!G.unlimited && s.streak > 1) ? ("🔥 " + s.streak + " day streak") : "";
+    var flex = duelFlexLine();
     var url = shareUrl();
-    return [head, "", grid, "", streakLine, url].filter(function (x) { return x !== ""; }).join("\n");
+    return [head, "", grid, "", flex, streakLine, url].filter(function (x) { return x !== ""; }).join("\n");
   }
   function shareUrl() {
     try {
@@ -503,6 +563,166 @@
     document.body.appendChild(ta); ta.select();
     try { document.execCommand("copy"); } catch (e) {}
     document.body.removeChild(ta);
+  }
+
+  /* ================= duel / challenge a friend =================
+     A challenge is a #c=<base64url(JSON)> fragment that encodes the mystery
+     player (by array index + name, so a future data.js reorder resolves by name),
+     the mode, the challenger's guess count and whether they solved it. A friend
+     opening the link plays the SAME cricketer in duel mode. Duels never touch the
+     daily streak/stats. Everything here is try/catch-guarded so a garbage or
+     truncated payload silently falls back to the normal daily puzzle. */
+  function b64urlEncode(str) {
+    try {
+      // UTF-8 safe: percent-encode -> latin1 bytes -> btoa (works in Android WebView)
+      var b64 = btoa(unescape(encodeURIComponent(str)));
+      return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    } catch (e) { return ""; }
+  }
+  function b64urlDecode(s) {
+    var b64 = String(s).replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    return decodeURIComponent(escape(atob(b64)));
+  }
+  function getPlayerName() { var n = lget("name", ""); return typeof n === "string" ? n : ""; }
+  function setPlayerName(n) { lset("name", String(n || "").slice(0, 24)); }
+
+  function buildDuelPayload(name) {
+    var a = G.answer;
+    return {
+      v: 1,
+      i: ALL.indexOf(a),                 // fast path; verified by name on decode
+      n: a.name,                         // stable key — survives array reorders
+      m: G.mode,
+      g: G.won ? G.guesses.length : MAX_GUESSES,
+      s: G.won ? 1 : 0,
+      by: (name != null ? name : getPlayerName()) || ""
+    };
+  }
+  function buildChallengeUrl(name) {
+    var enc = b64urlEncode(JSON.stringify(buildDuelPayload(name)));
+    var base = shareUrl() || (location.origin + location.pathname);
+    return base + "#c=" + enc;
+  }
+  function parseChallenge() {
+    try {
+      var h = location.hash || "";
+      var m = h.match(/[#&]c=([^&]+)/);
+      if (!m) return null;
+      var p = JSON.parse(b64urlDecode(m[1]));
+      if (!p || typeof p !== "object") return null;
+      var player = null;
+      // Prefer the recorded index, but only trust it when the name still matches.
+      if (typeof p.i === "number" && p.i >= 0 && p.i < ALL.length &&
+          (typeof p.n !== "string" || ALL[p.i].name === p.n)) {
+        player = ALL[p.i];
+      }
+      // Fallback / future reorders: resolve by name.
+      if (!player && typeof p.n === "string") player = byName(p.n);
+      if (!player) return null;
+      var mode = (p.m === "legend") ? "legend" : "ipl";
+      var gc = (typeof p.g === "number" && p.g >= 1 && p.g <= MAX_GUESSES) ? (p.g | 0) : MAX_GUESSES;
+      var by = (typeof p.by === "string") ? p.by.replace(/[\x00-\x1f]/g, "").trim().slice(0, 24) : "";
+      return { answer: player, mode: mode, g: gc, s: !!p.s, by: by };
+    } catch (e) { return null; }
+  }
+  function clearChallengeHash() {
+    try {
+      if (/[#&]c=/.test(location.hash) && history && history.replaceState) {
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+    } catch (e) {}
+  }
+  function duelVerdict() {
+    var by = G.duel.by || "Your friend";
+    var youWon = G.won, theyWon = !!G.duel.s, yg = G.guesses.length, tg = G.duel.g;
+    if (youWon && theyWon) {
+      if (yg < tg) return { cls: "win", text: "You beat " + by + "! " + yg + " vs " + tg + " guesses" };
+      if (yg === tg) return { cls: "win", text: "Dead heat with " + by + " — both in " + yg };
+      return { cls: "lose", text: by + " wins — " + tg + " vs your " + yg + ". Rematch?" };
+    }
+    if (youWon && !theyWon) return { cls: "win", text: "You cracked what " + by + " couldn't. Clutch." };
+    if (!youWon && theyWon) return { cls: "lose", text: by + " got it in " + tg + ", you didn't. Ouch." };
+    return { cls: "lose", text: "Neither of you got it — a proper mystery." };
+  }
+  function duelFlexLine() {
+    if (!G.duel) return "";
+    var by = G.duel.by || "my friend";
+    var youWon = G.won, theyWon = !!G.duel.s, yg = G.guesses.length, tg = G.duel.g;
+    if (youWon && theyWon) {
+      if (yg < tg) return "⚔ Beat " + by + " " + yg + "→" + tg;
+      if (yg === tg) return "⚔ Tied " + by + " at " + yg;
+      return "⚔ " + by + " beat me " + tg + "→" + yg;
+    }
+    if (youWon && !theyWon) return "⚔ Solved what " + by + " couldn't";
+    if (!youWon && theyWon) return "⚔ " + by + " got it, I blanked";
+    return "⚔ Neither of us got it";
+  }
+  function buildChallengeMessage(name, url) {
+    var who = name || "I";
+    var line;
+    if (G.won) {
+      line = who + " cracked " + (G.duel ? "this Guess the Cricketer duel" : "today's Guess the Cricketer") +
+        " in " + G.guesses.length + "/" + MAX_GUESSES + ". Same mystery cricketer — can you beat that?";
+    } else {
+      line = who + " couldn't crack this Guess the Cricketer — same mystery cricketer, can you?";
+    }
+    return line + "\n" + url;
+  }
+  function shareChallenge(name) {
+    var url = buildChallengeUrl(name);
+    var msg = buildChallengeMessage(name, url);
+    if (navigator.share) { navigator.share({ text: msg }).catch(function () {}); return; }
+    var wa = "https://wa.me/?text=" + encodeURIComponent(msg);
+    var win = window.open(wa, "_blank");
+    if (!win) { copyText(msg); toast("Copied — paste into WhatsApp"); }
+    else { copyText(url); }
+  }
+  function buildChallengeBlock(isCounter) {
+    var wrap = document.createElement("div");
+    wrap.className = "challenge-block";
+
+    var h = document.createElement("p");
+    h.className = "challenge-title";
+    h.textContent = isCounter ? "⚔ Counter-challenge" : "⚔ Challenge a friend";
+    wrap.appendChild(h);
+
+    var sub = document.createElement("p");
+    sub.className = "challenge-sub";
+    sub.textContent = G.won
+      ? "Send this link — they get the same mystery cricketer and try to beat your " +
+        G.guesses.length + "/" + MAX_GUESSES + "."
+      : "Send this link — dare a friend to crack the cricketer you couldn't.";
+    wrap.appendChild(sub);
+
+    var nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.className = "challenge-name";
+    nameInput.placeholder = "Your name (optional)";
+    nameInput.maxLength = 24;
+    nameInput.autocomplete = "off";
+    nameInput.value = getPlayerName();
+    nameInput.setAttribute("aria-label", "Your name for the challenge");
+    wrap.appendChild(nameInput);
+
+    var acts = document.createElement("div");
+    acts.className = "result-actions";
+    var sendBtn = document.createElement("button");
+    sendBtn.className = "pill-btn share-btn";
+    sendBtn.textContent = "Send challenge";
+    sendBtn.addEventListener("click", function () {
+      var nm = nameInput.value.trim(); setPlayerName(nm); shareChallenge(nm);
+    });
+    var copyBtn = document.createElement("button");
+    copyBtn.className = "pill-btn";
+    copyBtn.textContent = "Copy link";
+    copyBtn.addEventListener("click", function () {
+      var nm = nameInput.value.trim(); setPlayerName(nm);
+      copyText(buildChallengeUrl(nm)); toast("Challenge link copied");
+    });
+    acts.appendChild(sendBtn); acts.appendChild(copyBtn);
+    wrap.appendChild(acts);
+    return wrap;
   }
 
   /* ================= autocomplete ================= */
@@ -600,6 +820,31 @@
     beep(300, 0.28, "sawtooth", 0.1, 0);
     beep(220, 0.4, "sawtooth", 0.1, 0.16);
   }
+  // Synthesized crowd-roar swell — filtered white noise that rises then settles,
+  // like a stadium erupting. Gesture-gated through the same shared AudioContext.
+  function sfxRoar() {
+    var c = ac_(); if (!c) return;
+    if (c.state === "suspended") c.resume();
+    try {
+      var t0 = c.currentTime, dur = 1.9;
+      var frames = Math.floor(c.sampleRate * dur);
+      var buf = c.createBuffer(1, frames, c.sampleRate);
+      var d = buf.getChannelData(0), i;
+      for (i = 0; i < frames; i++) d[i] = Math.random() * 2 - 1;   // white noise
+      var src = c.createBufferSource(); src.buffer = buf;
+      var bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 0.8;
+      bp.frequency.setValueAtTime(320, t0);
+      bp.frequency.exponentialRampToValueAtTime(1050, t0 + 0.7);   // swell brightens
+      bp.frequency.exponentialRampToValueAtTime(520, t0 + dur);
+      var g = c.createGain();
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.55);        // roar rises
+      g.gain.exponentialRampToValueAtTime(0.10, t0 + 1.2);         // holds
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);       // fades
+      src.connect(bp); bp.connect(g); g.connect(c.destination);
+      src.start(t0); src.stop(t0 + dur + 0.02);
+    } catch (e) {}
+  }
 
   /* ================= confetti (cricket ball + bail colours) ================= */
   var fxCtx = null, fxParts = [], fxRAF = null;
@@ -669,9 +914,10 @@
   function currentMode() { return lget("mode", "ipl"); }
   function setMode(mode) {
     lset("mode", mode);
-    var btns = modeSeg.querySelectorAll("button");
-    for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-pressed", btns[i].dataset.mode === mode ? "true" : "false");
-    newGame({ mode: mode, unlimited: G ? G.unlimited : false });
+    // Carry the unlimited flag only from a genuine unlimited round — leaving a
+    // duel via the mode buttons returns to the normal daily puzzle.
+    var keepUnlimited = !!(G && G.unlimited && !G.duel);
+    newGame({ mode: mode, unlimited: keepUnlimited });
   }
 
   function initTheme() {
@@ -709,16 +955,14 @@
     for (var i = 0; i < btns.length; i++) {
       (function (b) {
         b.setAttribute("aria-pressed", b.dataset.mode === mode ? "true" : "false");
-        b.addEventListener("click", function () { if (b.dataset.mode !== G.mode || G.unlimited) setMode(b.dataset.mode); });
+        b.addEventListener("click", function () { if (b.dataset.mode !== G.mode || G.unlimited || G.duel) setMode(b.dataset.mode); });
       })(btns[i]);
     }
 
     unlimitedBtn.addEventListener("click", function () {
-      var goUnlimited = !G.unlimited;
-      unlimitedBtn.classList.toggle("on", goUnlimited);
-      unlimitedBtn.setAttribute("aria-pressed", goUnlimited ? "true" : "false");
-      unlimitedBtn.textContent = goUnlimited ? "Daily puzzle" : "Unlimited ∞";
-      newGame({ mode: G.mode, unlimited: goUnlimited });
+      // From a duel, the pill jumps straight to unlimited; otherwise it toggles.
+      var goUnlimited = G.duel ? true : !G.unlimited;
+      newGame({ mode: G.mode, unlimited: goUnlimited });   // reflectControls() syncs the pill
     });
 
     input.addEventListener("input", onInput);
@@ -748,12 +992,13 @@
       if (!ac.contains(e.target) && e.target !== input) closeAc();
     });
 
-    // hash routing: #/unlimited
-    if (/unlimited/i.test(location.hash)) {
+    // hash routing: a #c= challenge link opens straight into duel mode; then
+    // #/unlimited; otherwise the normal daily puzzle. A bad payload -> daily.
+    var challenge = parseChallenge();
+    if (challenge) {
+      newGame({ mode: challenge.mode, duel: challenge });   // reflectControls() syncs the controls
+    } else if (/unlimited/i.test(location.hash)) {
       newGame({ mode: mode, unlimited: true });
-      unlimitedBtn.classList.add("on");
-      unlimitedBtn.setAttribute("aria-pressed", "true");
-      unlimitedBtn.textContent = "Daily puzzle";
     } else {
       newGame({ mode: mode, unlimited: false });
     }
