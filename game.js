@@ -126,14 +126,16 @@
         else if (gn === an) { res.state = "exact"; }
         else { var diff = Math.abs(gn - an); res.state = diff <= 3 ? "close" : "wrong"; res.arrow = gn < an ? "up" : "down"; }
       } else if (c === "ipls") {
-        // green: guess's LATEST team == answer's latest; yellow: share any franchise; grey: none.
+        // green: guess's LATEST team == answer's latest (show that team);
+        // yellow: they share a franchise but not the latest (show the SHARED team(s));
+        // grey: no overlap (show the guess's latest team).
         var gl = (g && g.length) ? g[g.length - 1] : null;
         var al = (a && a.length) ? a[a.length - 1] : null;
-        res.val = gl || "—";
-        if (gl == null && al == null) res.state = "exact";        // both never played IPL
-        else if (gl != null && al != null && gl === al) res.state = "exact";
-        else if (g && a && g.some(function (t) { return a.indexOf(t) !== -1; })) res.state = "close";
-        else res.state = "wrong";
+        var shared = (g && a) ? g.filter(function (t) { return a.indexOf(t) !== -1; }) : [];
+        if (gl == null && al == null) { res.state = "exact"; res.val = "—"; }         // both never played IPL
+        else if (gl != null && al != null && gl === al) { res.state = "exact"; res.val = gl; }
+        else if (shared.length) { res.state = "close"; res.val = shared.join(" · "); } // show the franchise they share
+        else { res.state = "wrong"; res.val = gl || "—"; }
       } else if (c === "wc") {
         // green: same World Cup tier as the answer (so a correct guess is all-green);
         // yellow: one tier off (Won<->Squad or Squad<->Never); grey: opposite ends.
