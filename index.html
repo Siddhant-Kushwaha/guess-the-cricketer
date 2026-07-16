@@ -85,12 +85,13 @@
         <button type="button" class="key-help" id="keyHelp" aria-hidden="false" aria-label="What does close mean?">what's “close”?</button>
       </div>
       <div class="key-detail" id="keyDetail" hidden>
-        <p><strong>Roles are Batter, Bowler, Allrounder, Keeper.</strong> A yellow Role tile means a <em>related</em> role: Keeper ↔ Batter are related, and Allrounder is related to every specialist — so yellow on Batter with grey on Bowler points at a Keeper.</p>
-        <p><strong>Country:</strong> yellow = same region (e.g. subcontinent). <strong>Bowl:</strong> yellow = same family (pace ↔ pace, spin ↔ spin). <strong>Debut / No.:</strong> yellow = within 3, arrow points toward the answer. A dashed <strong>?</strong> tile means the mystery player's number isn't on record — nothing to compare.</p>
+        <p><strong>Roles are Batter, Bowler, Allrounder, Keeper</strong> (as listed on ESPNcricinfo). A yellow Role tile means a <em>related</em> role: Keeper ↔ Batter are related, and Allrounder is related to every specialist — so yellow on Batter with grey on Bowler points at a Keeper.</p>
+        <p><strong>Country:</strong> yellow = same region. <strong>Bowl:</strong> yellow = same family (pace ↔ pace, spin ↔ spin). <strong>Debut:</strong> yellow = within 3 years, arrow points toward the answer.</p>
+        <p><strong>IPL:</strong> the tile shows your guess's latest IPL team. Green = same current team as the mystery player; yellow = they've shared <em>any</em> franchise; grey = never overlapped. <strong>World Cup:</strong> green = same World Cup pedigree as the answer (Won / in a Squad / Never); yellow = one step off. The answer's full IPL journey and World Cup status are revealed when you solve it.</p>
       </div>
 
       <div class="legend" aria-hidden="true">
-        <span>Country</span><span>Role</span><span>Bat</span><span>Bowl</span><span>Debut</span><span>IPL</span><span>No.</span>
+        <span>Country</span><span>Role</span><span>Bat</span><span>Bowl</span><span>Debut</span><span>IPL</span><span>World Cup</span>
       </div>
 
       <div class="board" id="board" aria-label="Your guesses"></div>
@@ -154,7 +155,7 @@
     </footer>
   </div>
 
-  <script src="data.js?v=12"></script>
-  <script src="game.js?v=12"></script>
+  <script src="data.js?v=14"></script>
+  <script src="game.js?v=14"></script>
 </body>
 </html>

@@ -471,3 +471,6 @@ footer .copy { font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
 }
 
 .visually-hidden { position:absolute!important; width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap; }
+
+/* Report a wrong stat */
+.report-link { display: inline-block; margin: 10px auto 0; font-family: var(--mono); font-size: 11px; color: var(--ink-soft); text-decoration: underline dotted; text-align: center; width: 100%; }

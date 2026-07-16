@@ -10,14 +10,16 @@
   var SLUG = "guess-the-cricketer";
   var NS = "wg:" + SLUG + ":";
   var MAX_GUESSES = 8;
-  var ATTRS = ["name", "country", "role", "bat", "bowl", "debut", "ipl", "num"];
+  var ATTRS = ["name", "country", "role", "bat", "bowl", "debut", "ipls", "wc"];
   // Board columns (name is the guessed identity, shown implicitly). We show 7 feedback columns.
-  var COLS = ["country", "role", "bat", "bowl", "debut", "ipl", "num"];
+  var COLS = ["country", "role", "bat", "bowl", "debut", "ipls", "wc"];
   var COL_LABELS = {
     country: "Country", role: "Role", bat: "Bat", bowl: "Bowl",
-    debut: "Debut", ipl: "IPL", num: "No."
+    debut: "Debut", ipls: "IPL", wc: "World Cup"
   };
-  var NUMERIC = { debut: true, num: true };
+  var NUMERIC = { debut: true };
+  var WC_RANK = { WON: 2, SQUAD: 1, NEVER: 0 };
+  var WC_LABEL = { WON: "Won", SQUAD: "Squad", NEVER: "Never" };
 
   var ALL = (window.CRICKETERS || []).slice();
 
@@ -79,13 +81,14 @@
 
   /* ---------- pools per mode ---------- */
   function poolFor(mode) {
-    if (mode === "ipl") return ALL.filter(function (p) { return p.ipl && p.ipl !== "—"; });
+    // Guess pool: large. IPL mode = anyone who has played IPL; Legend = everyone.
+    if (mode === "ipl") return ALL.filter(function (p) { return p.ipls && p.ipls.length > 0; });
     return ALL.slice(); // legend = full cross-era list
   }
-  // Answers only come from players with a recorded shirt number, so the number
-  // column always gives real feedback. The full pool stays guessable.
+  // Answer pool: the curated famous set. Guess-only players (e.g. uncapped IPL
+  // stars) set answerable:false and can be typed but never become the mystery player.
   function answerPoolFor(mode) {
-    return poolFor(mode).filter(function (p) { return p.num != null; });
+    return poolFor(mode).filter(function (p) { return p.answerable !== false; });
   }
   // A stable per-mode salt so IPL and Legend get independent daily answers.
   var SALT = { ipl: 19008, legend: 45777 };
@@ -117,21 +120,26 @@
     COLS.forEach(function (c) {
       var g = guess[c], a = answer[c];
       var res = { val: displayVal(c, g), arrow: null, state: "wrong" };
-      if (NUMERIC[c]) {
+      if (c === "debut") {
         var gn = numOf(g), an = numOf(a);
-        if (gn == null || an == null) {
-          // Comparison impossible (no recorded number on one side): neutral tile,
-          // no arrow, never implies right/wrong — but ALWAYS show the guess's own
-          // value (res.val already holds it); a "?" here reads as missing data.
-          res.state = "unknown";
-          res.arrow = null;
-        } else if (gn === an) {
-          res.state = "exact";
-        } else {
-          var diff = Math.abs(gn - an);
-          res.state = diff <= 3 ? "close" : "wrong";
-          res.arrow = gn < an ? "up" : "down"; // answer is higher -> guess should go up
-        }
+        if (gn == null || an == null) { res.state = "unknown"; }
+        else if (gn === an) { res.state = "exact"; }
+        else { var diff = Math.abs(gn - an); res.state = diff <= 3 ? "close" : "wrong"; res.arrow = gn < an ? "up" : "down"; }
+      } else if (c === "ipls") {
+        // green: guess's LATEST team == answer's latest; yellow: share any franchise; grey: none.
+        var gl = (g && g.length) ? g[g.length - 1] : null;
+        var al = (a && a.length) ? a[a.length - 1] : null;
+        res.val = gl || "—";
+        if (gl == null && al == null) res.state = "exact";        // both never played IPL
+        else if (gl != null && al != null && gl === al) res.state = "exact";
+        else if (g && a && g.some(function (t) { return a.indexOf(t) !== -1; })) res.state = "close";
+        else res.state = "wrong";
+      } else if (c === "wc") {
+        // green: same World Cup tier as the answer (so a correct guess is all-green);
+        // yellow: one tier off (Won<->Squad or Squad<->Never); grey: opposite ends.
+        res.val = WC_LABEL[g] || "—";
+        var d = Math.abs((WC_RANK[g] || 0) - (WC_RANK[a] || 0));
+        res.state = d === 0 ? "exact" : d === 1 ? "close" : "wrong";
       } else if (c === "country") {
         if (g === a) res.state = "exact";
         else if (REGION[g] && REGION[g] === REGION[a]) res.state = "close";
@@ -141,7 +149,7 @@
       } else if (c === "bowl") {
         if (g === a) res.state = "exact";
         else if (g !== "—" && a !== "—" && bowlFamily(g) === bowlFamily(a)) res.state = "close";
-      } else { // bat, ipl
+      } else { // bat
         if (g === a) res.state = "exact";
       }
       out[c] = res;
@@ -323,7 +331,7 @@
     var ans = answerFor(G.mode, yDay);
     yBody.innerHTML = "Answer #" + yDay + " was <b>" + esc(ans.name) + "</b>.";
     yMeta.textContent = ans.country + " · " + ans.role + " · debut " + ans.debut +
-      (ans.ipl !== "—" ? " · " + ans.ipl : "");
+      ((ans.ipls && ans.ipls.length) ? " · " + ans.ipls[ans.ipls.length - 1] : "");
   }
 
   function updateStatus() {
@@ -447,9 +455,9 @@
 
     var card = document.createElement("div");
     card.className = "pcard" + (won ? "" : " lose") + (fresh ? " spotlight" : "");
+    var wcFull = { WON: "🏆 World Cup winner", SQUAD: "World Cup squad", NEVER: "No World Cup squad" };
     card.innerHTML =
       '<div class="pcard-top">' +
-        '<div class="pcard-num">' + (a.num != null ? a.num : "—") + '</div>' +
         '<p class="pcard-role">' + esc(a.role) + '</p>' +
         '<h3 class="pcard-name">' + esc(a.name) + '</h3>' +
         '<p class="pcard-country">' + esc(a.country) + '</p>' +
@@ -458,9 +466,20 @@
         cell("Batting", a.bat + "-hand") +
         cell("Bowling", a.bowl) +
         cell("Debut", String(a.debut)) +
-        cell("IPL Team", a.ipl === "—" ? "Never played IPL" : a.ipl) +
+        cell("World Cup", wcFull[a.wc] || "—") +
+        cell("IPL", (a.ipls && a.ipls.length) ? a.ipls.join(" · ") : "Never played IPL") +
       '</dl>';
     resultEl.appendChild(card);
+
+    // Report a wrong stat — one tap opens a pre-filled issue (players are the QA army).
+    var report = document.createElement("a");
+    report.className = "report-link";
+    report.textContent = "Spot a wrong stat? Report it";
+    report.href = "https://github.com/Siddhant-Kushwaha/guess-the-cricketer/issues/new?title=" +
+      encodeURIComponent("Data fix: " + a.name) +
+      "&body=" + encodeURIComponent("Player: " + a.name + "\nField (role/bat/bowl/debut/IPL/World Cup): \nShould be: \nSource: ");
+    report.target = "_blank"; report.rel = "noopener";
+    resultEl.appendChild(report);
 
     // actions
     var actions = document.createElement("div");
