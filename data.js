@@ -313,7 +313,7 @@
     { name: "Shoaib Malik", country: "Pakistan", role: "Allrounder", bat: "Right", bowl: "Right-arm offbreak", debut: 1999, ipl: "DC", num: 18 },
     { name: "Shahid Afridi", country: "Pakistan", role: "Allrounder", bat: "Right", bowl: "Legbreak", debut: 1996, ipl: "DC", num: 10 },
     { name: "Shoaib Akhtar", country: "Pakistan", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 1997, ipl: "KKR", num: 14 },
-    { name: "Sohail Tanvir", country: "Pakistan", role: "Bowler", bat: "Left", bowl: "Left-arm fast-medium", debut: 2007, ipl: "RR", num: 33 },
+    { name: "Sohail Tanvir", country: "Pakistan", role: "Allrounder", bat: "Left", bowl: "Left-arm fast-medium", debut: 2007, ipl: "RR", num: 33 },
     { name: "Umar Gul", country: "Pakistan", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2003, ipl: "KKR", num: null },
     { name: "Younis Khan", country: "Pakistan", role: "Batter", bat: "Right", bowl: "Legbreak", debut: 2000, ipl: "—", num: 75 },
     { name: "Misbah-ul-Haq", country: "Pakistan", role: "Batter", bat: "Right", bowl: "—", debut: 2001, ipl: "—", num: 22 },
@@ -406,7 +406,7 @@
     { name: "Blessing Muzarabani", country: "Zimbabwe", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 2017, ipl: "—", num: 40 },
 
     // ---------- IRELAND ----------
-    { name: "Paul Stirling", country: "Ireland", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2008, ipl: "—", num: 1 },
+    { name: "Paul Stirling", country: "Ireland", role: "Allrounder", bat: "Right", bowl: "Right-arm offbreak", debut: 2008, ipl: "—", num: 1 },
     { name: "Kevin O'Brien", country: "Ireland", role: "Allrounder", bat: "Right", bowl: "Right-arm medium", debut: 2006, ipl: "—", num: 22 },
     { name: "Andrew Balbirnie", country: "Ireland", role: "Batter", bat: "Right", bowl: "—", debut: 2010, ipl: "—", num: 63 },
     { name: "Josh Little", country: "Ireland", role: "Bowler", bat: "Right", bowl: "Left-arm fast", debut: 2016, ipl: "GT", num: 82 },
