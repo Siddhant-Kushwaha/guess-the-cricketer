@@ -219,7 +219,7 @@
     { name: "Hashim Amla", country: "South Africa", role: "Batter", bat: "Right", bowl: "—", debut: 2004, ipl: "PBKS", num: 1 },
     { name: "David Miller", country: "South Africa", role: "Batter", bat: "Left", bowl: "—", debut: 2010, ipl: "LSG", num: 10 },
     { name: "Heinrich Klaasen", country: "South Africa", role: "Keeper", bat: "Right", bowl: "—", debut: 2018, ipl: "SRH", num: 45 },
-    { name: "Aiden Markram", country: "South Africa", role: "Allrounder", bat: "Right", bowl: "Right-arm offbreak", debut: 2017, ipl: "LSG", num: 4 },
+    { name: "Aiden Markram", country: "South Africa", role: "Batter", bat: "Right", bowl: "Right-arm offbreak", debut: 2017, ipl: "LSG", num: 4 },
     { name: "Anrich Nortje", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2019, ipl: "KKR", num: 20 },
     { name: "Lungi Ngidi", country: "South Africa", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2017, ipl: "CSK", num: 22 },
     { name: "Marco Jansen", country: "South Africa", role: "Bowler", bat: "Left", bowl: "Left-arm fast", debut: 2021, ipl: "PBKS", num: 70 },
