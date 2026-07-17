@@ -82,7 +82,7 @@
     { name: "Sarfaraz Khan", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 2024, ipls: ["RCB","PBKS","DC","CSK"], wc: "NEVER" },
     { name: "Rajat Patidar", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 2023, ipls: ["RCB"], wc: "NEVER" },
     { name: "Jitesh Sharma", country: "India", role: "Keeper", bat: "Right", bowl: "—", debut: 2023, ipls: ["PBKS","RCB"], wc: "NEVER" },
-    { name: "Riyan Parag", country: "India", role: "Batter", bat: "Right", bowl: "Legbreak", debut: 2024, ipls: ["RR"], wc: "NEVER" },
+    { name: "Riyan Parag", country: "India", role: "Allrounder", bat: "Right", bowl: "Legbreak", debut: 2024, ipls: ["RR"], wc: "NEVER" },
     { name: "Harshal Patel", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2021, ipls: ["RCB","DC","PBKS","SRH"], wc: "SQUAD" },
     { name: "Avesh Khan", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 2022, ipls: ["RCB","DC","RR","LSG"], wc: "SQUAD" },
     { name: "Khaleel Ahmed", country: "India", role: "Bowler", bat: "Right", bowl: "Left-arm fast-medium", debut: 2018, ipls: ["SRH","DC","CSK"], wc: "SQUAD" },
