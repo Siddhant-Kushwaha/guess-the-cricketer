@@ -1,0 +1,64 @@
+### Current IPL team (42)
+  MS Dhoni: RPS -> CSK
+  VVS Laxman: SRH -> KTK
+  Gautam Gambhir: KKR -> DC
+  Ravichandran Ashwin: RR -> CSK
+  Hardik Pandya: GT -> MI
+  Mohammed Shami: LSG -> SRH
+  Bhuvneshwar Kumar: SRH -> RCB
+  Kuldeep Yadav: LSG -> DC
+  Ajinkya Rahane: CSK -> KKR
+  Dinesh Karthik: KKR -> RCB
+  Manish Pandey: DC -> KKR
+  RP Singh: SRH -> RPS
+  Murali Vijay: PBKS -> CSK
+  Avesh Khan: RR -> LSG
+  Suresh Raina: GL -> CSK
+  Mayank Agarwal: SRH -> RCB
+  Michael Hussey: MI -> CSK
+  Michael Clarke: PBKS -> PWI
+  David Warner: SRH -> DC
+  Glenn Maxwell: RCB -> PBKS
+  Marcus Stoinis: LSG -> PBKS
+  Tim David: MI -> RCB
+  Moeen Ali: CSK -> KKR
+  Sam Curran: RR -> CSK
+  Jofra Archer: MI -> RR
+  Adil Rashid: SRH -> PBKS
+  Jason Roy: — -> DC
+  Dale Steyn: GL -> RCB
+  Lungi Ngidi: RCB -> DC
+  Herschelle Gibbs: DC -> MI
+  Gerald Coetzee: GT -> SRH
+  JP Duminy: DC -> MI
+  Trent Boult: RR -> MI
+  Ross Taylor: PWI -> DC
+  James Neesham: — -> RR
+  Rachin Ravindra: KKR -> CSK
+  Dwayne Bravo: GL -> CSK
+  Darren Sammy: RCB -> PBKS
+  Shahid Afridi: DC -> DECCAN
+  Kumar Sangakkara: KKR -> SRH
+  Wanindu Hasaranga: RR -> LSG
+  Mohammad Nabi: SRH -> MI
+### World Cup status (4)
+  Ambati Rayudu: SQUAD -> NEVER
+  Manish Pandey: SQUAD -> NEVER
+  T Natarajan: SQUAD -> NEVER
+  James Anderson: WON -> SQUAD
+### Role (2)
+  Robin Uthappa: Keeper -> Batter
+  Riyan Parag: Allrounder -> Batter
+### Bowling (8)
+  Shardul Thakur: Right-arm medium -> Right-arm fast-medium
+  Munaf Patel: Right-arm medium -> Right-arm fast-medium
+  S Sreesanth: Right-arm fast -> Right-arm fast-medium
+  Sam Curran: Left-arm medium -> Left-arm fast-medium
+  Harry Brook: — -> Right-arm medium
+  James Neesham: Right-arm medium -> Right-arm fast-medium
+  Finn Allen: — -> Right-arm offbreak
+  Bas de Leede: Right-arm medium -> Right-arm fast-medium
+### Debut (1)
+  Abdullah Shafique: 2020 -> 2021
+
+TOTAL: 57 corrections
