@@ -1034,6 +1034,17 @@
     if (btn && panel) btn.addEventListener("click", function () { panel.hidden = !panel.hidden; });
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); wireKeyHelp(); });
-  else { init(); wireKeyHelp(); }
+  // If the tab is left open across midnight IST, roll to the new day's puzzle when
+  // the player returns to it (daily games only — never during a duel or unlimited round).
+  function wireDayRollover() {
+    function check() {
+      if (!G || G.unlimited || G.duel) return;
+      if (istInfo().dayNumber !== G.dayNumber) newGame({ mode: G.mode });
+    }
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) check(); });
+    window.addEventListener("focus", check);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); wireKeyHelp(); wireDayRollover(); });
+  else { init(); wireKeyHelp(); wireDayRollover(); }
 })();
