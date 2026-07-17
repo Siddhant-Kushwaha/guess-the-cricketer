@@ -31,7 +31,7 @@
     { name: "Bhuvneshwar Kumar", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm medium", debut: 2012, ipls: ["RCB","PWI","SRH"], wc: "SQUAD" },
     { name: "Yuzvendra Chahal", country: "India", role: "Bowler", bat: "Right", bowl: "Legbreak", debut: 2016, ipls: ["MI","RCB","RR","PBKS"], wc: "WON" },
     { name: "Kuldeep Yadav", country: "India", role: "Bowler", bat: "Left", bowl: "Left-arm wrist-spin", debut: 2017, ipls: ["KKR","DC","LSG"], wc: "WON" },
-    { name: "Suryakumar Yadav", country: "India", role: "Batter", bat: "Right", bowl: "Right-arm medium", debut: 2021, ipls: ["MI","KKR"], wc: "WON" },
+    { name: "Suryakumar Yadav", country: "India", role: "Batter", bat: "Right", bowl: "Right-arm medium", debut: 2021, ipls: ["KKR","MI"], wc: "WON" },
     { name: "Shubman Gill", country: "India", role: "Batter", bat: "Right", bowl: "—", debut: 2019, ipls: ["KKR","GT"], wc: "SQUAD" },
     { name: "Mohammed Siraj", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast", debut: 2017, ipls: ["SRH","RCB","GT"], wc: "WON" },
     { name: "Ishant Sharma", country: "India", role: "Bowler", bat: "Right", bowl: "Right-arm fast-medium", debut: 2007, ipls: ["KKR","DECCAN","SRH","RPS","PBKS","DC","GT"], wc: "SQUAD" },
