@@ -34,7 +34,7 @@
   };
   function bowlFamily(b) {
     if (!b || b === "—") return "none";
-    if (/offbreak|legbreak|orthodox|wrist-spin/.test(b)) return "spin";
+    if (/offbreak|legbreak|orthodox|wrist-spin/i.test(b)) return "spin";
     return "pace";
   }
   // roles that are "related" -> yellow when not exact
@@ -140,11 +140,12 @@
         else if (a && a.indexOf(gl) !== -1) res.state = "close";         // answer played there before
         else res.state = "wrong";                                        // answer never at that team
       } else if (c === "wc") {
-        // green: same World Cup tier as the answer (so a correct guess is all-green);
-        // yellow: one tier off (Won<->Squad or Squad<->Never); grey: opposite ends.
+        // green: same status. yellow: the Won<->Squad pair (both were in a WC squad).
+        // grey: anything involving Never (Never is only ever green or grey, never yellow).
         res.val = WC_LABEL[g] || "—";
-        var d = Math.abs((WC_RANK[g] || 0) - (WC_RANK[a] || 0));
-        res.state = d === 0 ? "exact" : d === 1 ? "close" : "wrong";
+        if (g === a) res.state = "exact";
+        else if (g !== "NEVER" && a !== "NEVER") res.state = "close";
+        else res.state = "wrong";
       } else if (c === "country") {
         if (g === a) res.state = "exact";
         else if (REGION[g] && REGION[g] === REGION[a]) res.state = "close";
